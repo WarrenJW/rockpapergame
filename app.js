@@ -1,3 +1,4 @@
+
 const choices= ['rock', 'paper', 'scissors']
 
 function game() {
