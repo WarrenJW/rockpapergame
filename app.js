@@ -1,90 +1,58 @@
 
+function game(possibleChoices){
+const computerChoiceDisplay = document.getElementById('computer-choice')
+const userChoiceDisplay = document.getElementById('user-choice')
+const resultDisplay = document.getElementById('result')
+const possibleChoices = document.querySelectorAll('button')
+let userChoice
+let computerChoice
+let result}
 
-var choices= ['rock', 'paper', 'scissors'];
-var winners= [];
 
+possibleChoices.forEach(possibleChoice => possibleChoice.addEventListener('click', (e) => {
+  userChoice = e.target.id
+  userChoiceDisplay.innerHTML = userChoice
+  generateComputerChoice()
+  getResult()
+}))
 
-
-
-function game() {
-    // play the game
-    //play 5 rounds
-    //console based
-    for(let i = 0; i <= 5; i++) {
-        playRound(i);
-    }
-    logWins();
-}
-
-function playRound(round) {
-    const playerSelection = playerChoice();
-    const computerSelection = computerChoice();
-    const winner = checkWinner(playerSelection, computerSelection);
-    winners.push(winner);
-    logRound(playerSelection, computerSelection, winner, round);
+function generateComputerChoice() {
+  const randomNumber = Math.floor(Math.random() * 3) + 1 // or you can use possibleChoices.length
+  
+  if (randomNumber === 1) {
+    computerChoice = 'rock'
   }
-
-function playerChoice() {
-    // gets input from player
-    let input = prompt("Type Rock, Paper or Scissors");
-    while (input == null) {
-        input = prompt("Type Rock, Paper or Scissors");
-    }
-    input = input.toLowerCase();
-    let check = validateInput(input);
-    while (check == false) {
-        input = prompt(
-            "Type Rock, Paper or Scissors. Spelling needs to be exact but capitalisation doesn't matter. "
-        );
-        while (input == null) {
-            input = prompt("Type Rock, Paper or Scissors");
-        }
-        input = input.toLowerCase();
-        check = validateInput(input);
-    }
-    return input;
+  if (randomNumber === 2) {
+    computerChoice = 'scissors'
+  }
+  if (randomNumber === 3) {
+    computerChoice = 'paper'
+  }
+  computerChoiceDisplay.innerHTML = computerChoice
 }
 
-function computerChoice() {
-    //gets random input from cpu
-    return choices[Math.floor(Math.random()*choices.length)];
+function getResult() {
+  if (computerChoice === userChoice) {
+    result = 'its a draw!'
+  }
+  if (computerChoice === 'rock' && userChoice === "paper") {
+    result = 'you win!'
+  }
+  if (computerChoice === 'rock' && userChoice === "scissors") {
+    result = 'you lost!'
+  }
+  if (computerChoice === 'paper' && userChoice === "scissors") {
+    result = 'you win!'
+  }
+  if (computerChoice === 'paper' && userChoice === "rock") {
+    result = 'you lose!'
+  }
+  if (computerChoice === 'scissors' && userChoice === "rock") {
+    result = 'you win!'
+  }
+  if (computerChoice === 'scissors' && userChoice === "paper") {
+    result = 'you lose!'
+  }
+  resultDisplay.innerHTML = result
 }
-
-function validateInput(choice) {
-    return choices.includes(choice);
-}
-
-function checkWinner(choiceP, choiceC) {
-    if (choiceP === choiceC) {
-        return 'Tie';
-    } else if (
-        (choiceP === 'rock' && choiceC === 'scissors') ||
-        (choiceP === 'paper' && choiceC === 'rock') ||
-        (choiceP === 'scissors' && choiceC === 'paper') 
-    ) {
-        return 'Player'
-    } else {
-        return 'Computer'
-    }
-}
-
-function logWins() {
-    let playerWins = winners.filter((item) => item == 'Player').length;
-    let computerWins = winners.filter((item) => item == 'Computer').length;
-    let ties = winners.filter((item) => item == 'Tie').length;
-    console.log('Results: ');
-    console.log('Player Wins:', playerWins);
-    console.log('Computer Wins: ', computerWins);
-    console.log('Ties: ', ties);
-}
-
-function logRound() {
-    console.log('Round: ', round)
-    console.log('Player Chose: ', playerChoice)
-    console.log('Computer Chose: ', computerChoice)
-    console.log(winner, 'Won the Round')
-    console.log('--------------------------------');
-}
-
-game();
 
