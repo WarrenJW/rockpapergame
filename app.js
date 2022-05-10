@@ -1,12 +1,12 @@
+function game() {
 
-function game(possibleChoices){
 const computerChoiceDisplay = document.getElementById('computer-choice')
 const userChoiceDisplay = document.getElementById('user-choice')
 const resultDisplay = document.getElementById('result')
 const possibleChoices = document.querySelectorAll('button')
 let userChoice
 let computerChoice
-let result}
+let result
 
 
 possibleChoices.forEach(possibleChoice => possibleChoice.addEventListener('click', (e) => {
@@ -56,3 +56,6 @@ function getResult() {
   resultDisplay.innerHTML = result
 }
 
+}
+
+game()
